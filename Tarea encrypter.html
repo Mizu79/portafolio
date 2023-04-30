@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Word Encrypter </title>
+    <script type="text/javascript">
+      function encrypt(word) {
+        // Validate input
+        if (!/^[a-z]+$/.test(word)) {
+          throw new Error('La entrada debe contener solo letras minúsculas sin acentos ni caracteres especiales.');
+        }
+        
+        // Convert 'e' to 'enter'
+        word = word.replace(/e/g, 'enter');
+        // Convert 'i' to 'imes'
+        word = word.replace(/i/g, 'imes');
+        // Convert 'a' to 'ai'
+        word = word.replace(/a/g, 'ai');
+        // Convert 'o' to 'ober'
+        word = word.replace(/o/g, 'ober');
+        // Convert 'u' to 'ufat'
+        word = word.replace(/u/g, 'ufat');
+        return word;
+      }
+      
+      function decrypt(word) {
+        // Validate input
+        if (!/^(enter|imes|ai|ober|ufat)+$/.test(word)) {
+          throw new Error('El input debe contener secuencias específicas utilizadas para el encriptado (enter, imes, ai, ober, ufat) y espacios, sin otros caracteres.');
+        }
+        
+        // Convert 'enter' to 'e'
+        word = word.replace(/enter/g, 'e');
+        // Convert 'imes' to 'i'
+        word = word.replace(/imes/g, 'i');
+        // Convert 'ai' to 'a'
+        word = word.replace(/ai/g, 'a');
+        // Convert 'ober' to 'or'
+        word = word.replace(/ober/g, 'or');
+        // Convert 'ufat' to 'u'
+        word = word.replace(/ufat/g, 'u');
+        return word;
+      }
+      
+      function encryptDecrypt() {
+        let input = document.getElementById("word").value;
+        let result = "";
+        try {
+          result = decrypt(input);
+        } catch(e) {
+          try {
+            result = encrypt(input);
+          } catch(e) {
+            result = e.message;
+          }
+        }
+        document.getElementById("result").innerHTML = result;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Word Encrypter</h1>
+    <p>Ingrese una palabra palabra para encriptar:</p>
+    <input type="text" id="word">
+    <button onclick="encryptDecrypt()">Encriptar</button>
+    <p id="result"></p>
+  </body>
+</html>
